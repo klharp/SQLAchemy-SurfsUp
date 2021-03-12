@@ -1,4 +1,6 @@
+import pandas as pd
 import numpy as np
+import datetime as data
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -7,11 +9,10 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
 
-
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///titanic.sqlite")
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -19,13 +20,14 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-Passenger = Base.classes.passenger
+Measurement = Base.classes.measurement
+Station = Base.classes.station
+
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
-
 
 #################################################
 # Flask Routes
@@ -35,50 +37,40 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/names<br/>"
-        f"/api/v1.0/passengers"
+        f"Available Hawaii API Routes:<br/>"
+        f"/api/v1.0/precipitation<br/>"
+        f"/api/v1.0/stations<br/>"
+        f"/api/v1.0/tobs<br/>"
+        f"/api/v1.0/start<br/>"
+        f"/api/v1.0/start/end"
     )
 
+@app.route("/api/v1.0/precipitation")
+def precipitation():
 
-@app.route("/api/v1.0/names")
-def names():
-    # Create our session (link) from Python to the DB
+    # Create session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all passenger names"""
-    # Query all passengers
-    results = session.query(Passenger.name).all()
+    """Return a dictionary of date and precipitation"""
+    # Query precipiation data
+    precipitation = session.query(Measurement.date, Measurement.prcp).all()
 
     session.close()
 
-    # Convert list of tuples into normal list
-    all_names = list(np.ravel(results))
+    # Convert to dictionary using date ad the key and prcp as the value
+    for u in precipitation:
+        print(u._asdict())
+    # measurements_data = []
+    # for date, prcp in precipitation:
+    #     measurements_dict = {}
+    #     measurments_dict["date"] = date
+    #     measurements_dict["prcp"] = prcp
+    #     measurments_data.append(measurements_dict)
 
-    return jsonify(all_names)
 
+    # Return JSON representation1
+    return jsonify(precipitation)
 
-@app.route("/api/v1.0/passengers")
-def passengers():
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    """Return a list of passenger data including the name, age, and sex of each passenger"""
-    # Query all passengers
-    results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
-
-    session.close()
-
-    # Create a dictionary from the row data and append to a list of all_passengers
-    all_passengers = []
-    for name, age, sex in results:
-        passenger_dict = {}
-        passenger_dict["name"] = name
-        passenger_dict["age"] = age
-        passenger_dict["sex"] = sex
-        all_passengers.append(passenger_dict)
-
-    return jsonify(all_passengers)
 
 
 if __name__ == '__main__':

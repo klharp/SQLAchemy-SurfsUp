@@ -34,7 +34,7 @@ Python and SQLAlchemy were used to do basic climate analysis and data exploratio
 
 * Used Pandas to print the summary statistics for the precipitation data.
 
- ![precipitation](Images/summarystats.png)
+  ![precipitation](Images/summarystats.png)
 
 ### Station Analysis
 
@@ -48,7 +48,7 @@ Python and SQLAlchemy were used to do basic climate analysis and data exploratio
 
   * Using the most active station id, calculate the lowest, highest, and average temperature.
 
-  * Hint: You will need to use a function such as `func.min`, `func.max`, `func.avg`, and `func.count` in your queries.
+    ![precipitation](Images/tempstats.png)
 
 * Design a query to retrieve the last 12 months of temperature observation data (TOBS).
 
@@ -58,9 +58,8 @@ Python and SQLAlchemy were used to do basic climate analysis and data exploratio
 
   * Plot the results as a histogram with `bins=12`.
 
-    ![station-histogram](Images/station-histogram.png)
+  ![station-histogram](Images/station-histogram.png)
 
-* Close out your session.
 
 - - -
 
