@@ -88,12 +88,35 @@ def stations():
     stations = session.query(Measurement.station, func.count(Measurement.station))\
     .group_by(Measurement.station).order_by(func.count(Measurement.station).desc()).all()
 
+    session.close()
+
     # Return JSON representation1
     return jsonify(stations)
 
 
+# stations route
+@app.route("/api/v1.0/tobs")
+def tobs():
+
+    # Create session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a JSON list of temperature observations for the previous year"""
+    # Query station data
+    query_enddate = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+
+    query_data2 = session.query(Measurement.date, Measurement.station, Measurement.tobs )\
+    .filter(Measurement.station == "USC00519281").filter(Measurement.date >=query_enddate).all()
+    
+    session.close()
+
+    # Convert list of tuples into normal list
+    # class 10-advanced-data-storage, 10-Ins_Flask_with_ORM
+    query_list = list(np.ravel(query_data2))
 
 
+    # Return JSON representation1
+    return jsonify(query_list)
 
 
 
