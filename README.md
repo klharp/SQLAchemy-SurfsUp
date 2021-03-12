@@ -108,29 +108,28 @@ Now that you have completed your initial analysis, design a Flask API based on t
 
 - - -
 
-## Bonus: Other Recommended Analyses
+## Temperature Analysis I
 
-* The following are optional challenge queries. These are highly recommended to attempt, but not required for the homework.
+Hawaii is reputed to enjoy mild weather all year. Is there a meaningful difference between the temperature in, for example, June and December?
 
-* Use the provided [temp_analysis_bonus_1_starter.ipynb](temp_analysis_bonus_1_starter.ipynb) and [temp_analysis_bonus_1_starter](temp_analysis_bonus_2_starter.ipynb) starter notebooks for each bonus challenge.
+* Identify the average temperature in June and December at all stations across all available years in the dataset.
 
-### Temperature Analysis I
+  * June: 74.94411764705882
+  * December: 71.04152933421226
 
-* Hawaii is reputed to enjoy mild weather all year. Is there a meaningful difference between the temperature in, for example, June and December?
+* The independent t-test was performed to determine whether the difference in the means, if any, is statistically significant. 
 
-* Use pandas to perform this portion.
+  * Ttest_indResult(statistic=31.60372399000329, pvalue=3.9025129038616655e-191)
+  
+  * Null Hypothesis: Temperatures in Hawaii in June and December have no statistically significant difference.
 
-  * Convert the date column format from string to datetime.
+  * Reject the Null Hypothesis
 
-  * Set the date column as the DataFrame index
+  * There is a statistically significant difference in the temperatures in June and December in Hawaii.
 
-  * Drop the date column
+- - -
 
-* Identify the average temperature in June at all stations across all available years in the dataset. Do the same for December temperature.
-
-* Use the t-test to determine whether the difference in the means, if any, is statistically significant. Will you use a paired t-test, or an unpaired t-test? Why?
-
-### Temperature Analysis II
+## Temperature Analysis II
 
 * You are looking to take a trip from August first to August seventh of this year, but are worried that the weather will be less than ideal. Using historical data in the dataset find out what the temperature has previously looked like.
 
