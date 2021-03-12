@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import datetime as data
+import datetime as dt
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -53,23 +53,24 @@ def precipitation():
 
     """Return a dictionary of date and precipitation"""
     # Query precipiation data
-    precipitation = session.query(Measurement.date, Measurement.prcp).all()
+    current_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+
+    query_enddate = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+
+    query_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= query_enddate).all()
 
     session.close()
 
     # Convert to dictionary using date ad the key and prcp as the value
-    for u in precipitation:
-        print(u._asdict())
-    # measurements_data = []
-    # for date, prcp in precipitation:
-    #     measurements_dict = {}
-    #     measurments_dict["date"] = date
-    #     measurements_dict["prcp"] = prcp
-    #     measurments_data.append(measurements_dict)
-
+    all_query = []
+    for date, prcp in query_data:
+        query_dict = {}
+        query_dict["date"] = date
+        query_dict["prcp"] = prcp
+        all_query.append(query_dict)
 
     # Return JSON representation1
-    return jsonify(precipitation)
+    return jsonify(all_query)
 
 
 
