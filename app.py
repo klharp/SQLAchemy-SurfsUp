@@ -45,6 +45,8 @@ def welcome():
         f"/api/v1.0/start/end"
     )
 
+
+# precipitation route
 @app.route("/api/v1.0/precipitation")
 def precipitation():
 
@@ -71,6 +73,28 @@ def precipitation():
 
     # Return JSON representation1
     return jsonify(all_query)
+
+
+# stations route
+@app.route("/api/v1.0/stations")
+def stations():
+
+    # Create session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a JSON list of stations"""
+    # Query station data
+
+    stations = session.query(Measurement.station, func.count(Measurement.station))\
+    .group_by(Measurement.station).order_by(func.count(Measurement.station).desc()).all()
+
+    # Return JSON representation1
+    return jsonify(stations)
+
+
+
+
+
 
 
 
