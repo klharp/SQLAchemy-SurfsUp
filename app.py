@@ -41,9 +41,8 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/start<br/>"
-        f"/api/v1.0/startQ<br/>"
-        f"/api/v1.0/start/end"
+        f"/api/v1.0/<start><br/>"
+        f"/api/v1.0/<start>/<end>"
     )
 
 # -------------------
@@ -59,10 +58,17 @@ def precipitation():
     # Query precipiation data
     current_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
 
-    query_enddate = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    # Slice the data and convert to integers
+    current_date[0][0:4]
+    current_year = int(current_date[0][0:4])
+    current_month = int(current_date[0][5:7])
+    current_day = int(current_date[0][8:])
+
+    # Pass the integers to find the year of data
+    query_enddate = dt.date(current_year, current_month, current_day) - dt.timedelta(days=365)
 
     query_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= query_enddate).all()
-
+    
     session.close()
 
     # Convert to dictionary using date ad the key and prcp as the value
@@ -108,11 +114,25 @@ def tobs():
     session = Session(engine)
 
     """Return a JSON list of temperature observations for the previous year"""
+    # Get last year
+    # query_enddate = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    # Change getting the year to passing variables
+    current_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+
+    # Slice the data and convert to integers
+    current_year = int(current_date[0][0:4])
+    current_month = int(current_date[0][5:7])
+    current_day = int(current_date[0][8:])
+
+    # Pass the integers to find the year of data
+    query_enddate = dt.date(current_year, current_month, current_day) - dt.timedelta(days=365)
+
     # Query station data
-    query_enddate = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    most_active = session.query(Measurement.station, func.count(Measurement.station)).group_by(Measurement.station)\
+    .order_by(func.count(Measurement.station).desc()).first()
 
     query_data2 = session.query(Measurement.date, Measurement.station, Measurement.tobs )\
-    .filter(Measurement.station == "USC00519281").filter(Measurement.date >=query_enddate).all()
+    .filter(Measurement.station == most_active[0]).filter(Measurement.date >= query_enddate).all()
     
     session.close()
 
@@ -128,8 +148,8 @@ def tobs():
 # -------------------
 # start date route -- INCOMPLETE, NEED TO DEFINE THE START DATE 
 # -------------------
-@app.route("/api/v1.0/start")
-def start():
+@app.route("/api/v1.0/<start>")
+def filter_start(start):
 
     # Create session (link) from Python to the DB
     session = Session(engine)
@@ -137,7 +157,8 @@ def start():
     """Return a JSON list of the minimum temperature, the average temperature, max temperature from the start"""
     # Query station data
 
-    query_data3 = session.query(func.min(Measurement.tobs),func.max(Measurement.tobs), func.avg(Measurement.tobs)).all()
+    query_data3 = session.query(func.min(Measurement.tobs),func.max(Measurement.tobs), func.avg(Measurement.tobs))\
+    .filter(Measurement.date >= start).all()
     
     session.close()
 
@@ -148,28 +169,12 @@ def start():
     # Return JSON representation1
     return jsonify(query_list3)
 
-# -------------------
-@app.route("/api/v1.0/startQ")
-# -------------------
-def help():
-
-    # Create session (link) from Python to the DB
-    session = Session(engine)
-
-    print("Is this giving the min, max, average for the entire dataset? How do I specify the start date?")
-    return (
-        f"Is this giving the min, max, average for the entire dataset?<br/>" 
-        f"How do I specify the start date?"
-    )
-
-    session.close()
-
 
 # -------------------
 # start_end date route -- INCOMPLETE, NEED TO DEFINE THE START AND END DATES
 # -------------------
-@app.route("/api/v1.0/start/end")
-def end():
+@app.route("/api/v1.0/<start>/<end>")
+def filter(start, end):
 
     # Create session (link) from Python to the DB
     session = Session(engine)
@@ -177,7 +182,8 @@ def end():
     """Return a JSON list of the minimum temperature, the average temperature, max temperature from the start"""
     # Query station data
 
-    query_data4 = session.query(func.min(Measurement.tobs),func.max(Measurement.tobs), func.avg(Measurement.tobs)).all()
+    query_data4 = session.query(func.min(Measurement.tobs),func.max(Measurement.tobs), func.avg(Measurement.tobs))\
+    .filter(Measurement.date >= start).filter(Measurement.date <= end).all()
     
     session.close()
 
