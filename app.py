@@ -99,7 +99,7 @@ def stations():
 
 
 # -------------------
-# preciptitation route -- HOW TO DEFINE THE START DATE AS A VARIABLE, SAME PROBLEM IN THE JUPYTER NOTEBOOK
+# tobs route -- HOW TO DEFINE THE START DATE AS A VARIABLE, SAME PROBLEM IN THE JUPYTER NOTEBOOK
 # -------------------
 @app.route("/api/v1.0/tobs")
 def tobs():
