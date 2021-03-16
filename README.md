@@ -165,25 +165,25 @@ Determined if there is a meaningful difference between the temperature in June a
 
 * Used historical data in the dataset to find out what the precipitation had previously looked like
 
-* Calculated the rainfall per weather station using the previous year's dates (i.e. "2017-08-01").
+  * Calculated the rainfall per weather station using the previous year's dates (i.e. "2017-08-01").
 
-  * Sorted  in descending order by precipitation amount and list the station, name, latitude, longitude, and elevation.
+    * Sorted  in descending order by precipitation amount and list the station, name, latitude, longitude, and elevation.
 
-* Calculate the daily normals. Normals are the averages for the min, avg, and max temperatures. You are provided with a function called `daily_normals` that will calculate the daily normals for a specific date. This date string will be in the format `%m-%d`. Be sure to use all historic TOBS that match that date string.
+* Calculated the daily normals. Normals are the averages for the min, avg, and max. 
 
   * Set the start and end date of the trip.
 
-  * Use the date to create a range of dates.
+  * Used the date to create a range of dates.
 
-  * Strip off the year and save a list of strings in the format `%m-%d`.
+  * Removed the year and saved a list of strings in the format `%m-%d`.
 
   * Use the `daily_normals` function to calculate the normals for each date string and append the results to a list called `normals`.
 
-* Load the list of daily normals into a Pandas DataFrame and set the index equal to the date.
+* Loaded the list of daily normals (for percipitation and temperature) into a Pandas DataFrame and set the index equal to the date.
 
-* Use Pandas to plot an area plot (`stacked=False`) for the daily normals.
+* Used Pandas to plot an area plot (`stacked=False`) for the daily normals.
 
   ![daily-normals](Images/vacation_ave_precip.png)
 
-
+ ![daily-normals](Images/vacation_ave_temp.png)
 
