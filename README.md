@@ -58,14 +58,14 @@ Python and SQLAlchemy were used to do basic climate analysis and data exploratio
 
   * Using the most active station id, calculated the lowest, highest, and average temperature.
 
-  count	352.000000 <br/>
-  mean	73.107955 <br/>
-  std	4.733315 <br/>
-  min	59.000000 <br/>
-  25%	70.000000 <br/>
-  50%	74.000000 <br/>
-  75%	77.000000 <br/>
-  max	83.000000 <br/>
+    count	352.000000 <br/>
+    mean	73.107955 <br/>
+    std	4.733315 <br/>
+    min	59.000000 <br/>
+    25%	70.000000 <br/>
+    50%	74.000000 <br/>
+    75%	77.000000 <br/>
+    max	83.000000 <br/>
 
 * Query to retrieve the last 12 months of temperature observation data (TOBS).
 
@@ -82,15 +82,13 @@ Python and SQLAlchemy were used to do basic climate analysis and data exploratio
 
 ## Climate App
 
-Designed a Flask API based on the previously developed.
+Designed a Flask API based on the previously developed queries.
 
-* Used Flask to create your routes.
+* Used Flask to create routes.
 
 ### Routes
 
-* `/`
-
-  * Home page.
+* `/` Home page
 
   * Available Hawaii API Routes:
 
@@ -151,7 +149,7 @@ Determined if there is a meaningful difference between the temperature in June a
 
 * Used historical data in the dataset find out what the temperature had previously looked like.
 
-* Used the `calc_temps` function to calculate the min, avg, and max temperatures for the trip using the matching dates from a previous year (i.e. "2017-08-01").
+* Used the `calc_temps` function to calculate the min, avg, and max temperatures for the trip using the matching dates from a previous year.
 
 * Plotted the min, avg, and max temperature as a bar chart.
 
@@ -169,21 +167,22 @@ Determined if there is a meaningful difference between the temperature in June a
 
     * Sorted  in descending order by precipitation amount and list the station, name, latitude, longitude, and elevation.
 
+### Daily Temperature Range and Average
+
 * Calculated the daily normals. Normals are the averages for the min, avg, and max. 
 
   * Set the start and end date of the trip.
 
-  * Used the date to create a range of dates.
+    * Used the date to create a range of dates.
 
   * Removed the year and saved a list of strings in the format `%m-%d`.
 
-  * Use the `daily_normals` function to calculate the normals for each date string and append the results to a list called `normals`.
+  * Use the `daily_normals` function to calculate the normals for each date string and append the results to a list.
 
-* Loaded the list of daily normals (for percipitation and temperature) into a Pandas DataFrame and set the index equal to the date.
+* Loaded the list of daily normals into a Pandas DataFrame and set the index equal to the date.
 
-* Used Pandas to plot an area plot (`stacked=False`) for the daily normals.
+* Used Pandas to plot an area plot for the daily normals.
 
-  ![daily-normals](Images/vacation_ave_precip.png)
 
  ![daily-normals](Images/vacation_ave_temp.png)
 
