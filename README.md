@@ -1,10 +1,23 @@
 # SQLAlchemy Homework - Surfs Up!
 
+## Project Overview
+This project is a climate analysis and data exploration of the climate database. Python and SQLAlchemy were used to do basic climate analysis and data exploration of the climate database using SQLAlchemy ORM queries, Pandas, and Matplotlib.
+
+Languages and libraries used:
+
+* Pandas
+* Numpy
+* Matplotlib
+* SQLAlchemy
+* DateTime
+
+---
+
 ## Climate Analysis and Exploration
 
 ### Data Preparation
 
-Python and SQLAlchemy were used to do basic climate analysis and data exploration of a climate database using SQLAlchemy ORM queries, Pandas, and Matplotlib.
+
 
 * Jupyter notebook, `climate.ipynb` and [hawaii.sqlite](Resources/hawaii.sqlite) files were used to complete the climate analysis and data exploration.
 
