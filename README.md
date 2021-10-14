@@ -1,7 +1,4 @@
-# SQLAlchemy Homework - Surfs Up!
-
-## Project Overview
-This project is a climate analysis and data exploration of the climate database. Python and SQLAlchemy were used to do basic climate analysis and data exploration of the climate database using SQLAlchemy ORM queries, Pandas, and Matplotlib.
+# SQLAlchemy  - Surfs Up!
 
 Languages and libraries used:
 
@@ -10,14 +7,13 @@ Languages and libraries used:
 * Matplotlib
 * SQLAlchemy
 * DateTime
-
+* Flask
+* JSON
 ---
 
 ## Climate Analysis and Exploration
 
 ### Data Preparation
-
-
 
 * Jupyter notebook, `climate.ipynb` and [hawaii.sqlite](Resources/hawaii.sqlite) files were used to complete the climate analysis and data exploration.
 
@@ -30,19 +26,19 @@ Languages and libraries used:
 
 ### Precipitation Analysis
 
-* Find the most recent date in the data set.
+* Found the most recent date in the data set.
 
   * Most recent date: 2017, 08, 23
 
-* Using this date, retrieves the last 12 months of precipitation data by querying the 12 preceding months of data. 
+* Used this date to retrieve the last 12 months of precipitation data by querying the 12 preceding months of data. 
 
-  * Select only the `date` and `prcp` values.
+  * Selected only the `date` and `prcp` values.
 
 * Loaded the query results into a Pandas DataFrame and set the index to the date column.
 
 * Sorted the DataFrame values by `date`.
 
-* Plottec the results using the DataFrame `plot` method.
+* Plotted the results using the DataFrame `plot` method.
 
   ![precipitation](Images/precipitation.png)
 
@@ -60,16 +56,16 @@ Languages and libraries used:
 
 ### Station Analysis
 
-* Query to calculate the total number of stations in the dataset.
+* Queried to calculate the total number of stations in the dataset.
 
-* Query to find the most active stations.
+* Queried to find the most active stations.
 
   * Listed the stations and observation counts in descending order.
 
-  * Determinied wich station id has the highest number of observations.
+  * Determined which station id had the highest number of observations.
     * Station with most observations: USC00519281
 
-  * Using the most active station id, calculated the lowest, highest, and average temperature.
+  * Used the most active station id, calculated the lowest, highest, and average temperature.
 
     count	352.000000 <br/>
     mean	73.107955 <br/>
@@ -80,7 +76,7 @@ Languages and libraries used:
     75%	77.000000 <br/>
     max	83.000000 <br/>
 
-* Query to retrieve the last 12 months of temperature observation data (TOBS).
+* Queried to retrieve the last 12 months of temperature observation data (TOBS).
 
   * Filtered by the station with the highest number of observations.
 
